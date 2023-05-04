@@ -59,4 +59,5 @@ public class Produit {
     @ManyToMany
     private List<Allergene> allergenes;
     
+    
 }
