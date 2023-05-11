@@ -34,7 +34,7 @@ import com.mycompany.openfoodfact.model.Produit;
 public class csvFile {
 
     public static void parseFile() {
-        Path path = Paths.get("C:\\Users\\maria\\OneDrive\\Documents\\NetBeansProjects\\openfoodfact_marian\\conception\\open-food-facts.csv");
+        Path path = Paths.get("..\\conception\\open-food-facts.csv");
         try {
             BufferedReader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8);
             int compteur = 0;
