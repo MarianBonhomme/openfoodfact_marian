@@ -4,22 +4,33 @@
  */
 package com.mycompany.openfoodfact.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQuery;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author maria
  */
-
 @Entity
+@NamedQuery(name = "findByIngredient", query = "SELECT i from Ingredient i WHERE i.nom= :nom")
 public class Ingredient {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(length = 512)
     private String nom;
+
+    @ManyToMany(mappedBy = "ingredients")
+    private List<Produit> produits = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -36,7 +47,18 @@ public class Ingredient {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    
-    
-    
+
+    public List<Produit> getProduits() {
+        return produits;
+    }
+
+    public void setProduits(List<Produit> produits) {
+        this.produits = produits;
+    }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" + "id=" + id + ", nom=" + nom + ", produits=" + produits + '}';
+    }
+
 }

@@ -8,7 +8,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,13 +19,15 @@ import java.util.List;
  */
 
 @Entity
+@NamedQuery(name = "findByMarque", query = "SELECT m from Marque m WHERE m.nom= :nom")
 public class Marque {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nom;    
-    @OneToMany
-    private List<Produit> produits;
+    private String nom;   
+    
+    @ManyToMany(mappedBy = "marques")
+    private List<Produit> produits = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -48,5 +52,11 @@ public class Marque {
     public void setProduits(List<Produit> produits) {
         this.produits = produits;
     }   
+
+    @Override
+    public String toString() {
+        return "Marque{" + "id=" + id + ", nom=" + nom + ", produits=" + produits + '}';
+    }   
+    
     
 }

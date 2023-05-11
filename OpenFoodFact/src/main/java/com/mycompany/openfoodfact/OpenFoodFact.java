@@ -4,6 +4,9 @@
 
 package com.mycompany.openfoodfact;
 
+import com.mycompany.openfoodfact.dao.JPAUtils;
+import com.mycompany.openfoodfact.service.csvFile;
+
 /**
  *
  * @author maria
@@ -11,6 +14,14 @@ package com.mycompany.openfoodfact;
 public class OpenFoodFact {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        csvFile.parseFile();
+        
+        try {
+            JPAUtils.getInstance().closeEntityManager();
+        } catch (Exception e) {
+            
+        }
+        
     }
 }

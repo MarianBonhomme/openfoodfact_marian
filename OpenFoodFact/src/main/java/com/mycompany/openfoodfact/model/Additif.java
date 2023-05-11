@@ -8,19 +8,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQuery;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author maria
  */
-
 @Entity
+@NamedQuery(name = "findByAdditif", query = "SELECT a from Additif a WHERE a.nom= :nom")
 public class Additif {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String code;
     private String nom;
+
+    @ManyToMany(mappedBy = "additifs")
+    private List<Produit> produits = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -28,14 +35,6 @@ public class Additif {
 
     public void setId(Long id) {
         this.id = id;
-    }
-    
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getNom() {
@@ -45,6 +44,18 @@ public class Additif {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    
-    
+
+    public List<Produit> getProduits() {
+        return produits;
+    }
+
+    public void setProduits(List<Produit> produits) {
+        this.produits = produits;
+    }
+
+    @Override
+    public String toString() {
+        return "Additif{" + "id=" + id + ", nom=" + nom + ", produits=" + produits + '}';
+    }
+
 }
